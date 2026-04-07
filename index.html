@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Where Ireland's Waiting List Crisis Really Lives - Team 07</title>
+<script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:#f5f5f0;font-family:Georgia,serif;}
+.masthead{background:#1a1a2e;padding:28px 40px 22px;border-bottom:4px solid #c0392b;}
+.masthead .tag{color:#7f8c9a;font-size:10px;letter-spacing:2px;font-family:Arial,sans-serif;margin-bottom:8px;}
+.masthead h1{color:white;font-size:32px;line-height:1.2;}
+.masthead .byline{display:flex;justify-content:space-between;margin-top:10px;flex-wrap:wrap;gap:6px;}
+.masthead .byline p{font-family:Arial,sans-serif;font-size:12px;color:#aab0be;}
+.masthead .byline span{font-family:Arial,sans-serif;font-size:10px;color:#7f8c9a;}
+.body{max-width:1100px;margin:0 auto;padding:24px 20px;}
+.card{background:white;border-radius:6px;padding:22px 26px;margin-bottom:18px;box-shadow:0 1px 4px rgba(0,0,0,0.1);}
+.card.red{border-top:4px solid #c0392b;}
+.card.blue{border-top:4px solid #2471a3;}
+.card.amber{border-top:4px solid #e67e22;}
+.section-label{margin-bottom:10px;}
+.section-label .num{color:#2471a3;font-family:Arial,sans-serif;font-weight:bold;font-size:13px;letter-spacing:1px;}
+.section-label .title{color:#1a1a2e;font-family:Arial,sans-serif;font-weight:bold;font-size:15px;}
+.sub{font-size:12px;color:#666;margin-bottom:12px;font-family:Arial,sans-serif;}
+.kpi-row{display:flex;gap:50px;align-items:center;flex-wrap:wrap;}
+.kpi-big{font-size:64px;font-weight:bold;color:#c0392b;line-height:1;}
+.kpi-label{font-size:15px;color:#444;font-family:Arial,sans-serif;margin-top:4px;}
+.kpi-sub{font-size:11px;color:#95a5a6;font-family:Arial,sans-serif;}
+.divider{width:2px;height:80px;background:#ddd;}
+.stats-row{display:flex;gap:40px;flex-wrap:wrap;}
+.stat-num{font-size:32px;font-weight:bold;font-family:Georgia,serif;}
+.stat-red{color:#c0392b;}
+.stat-blue{color:#2471a3;}
+.stat-lbl{font-size:12px;color:#555;font-family:Arial,sans-serif;}
+.stat-sub{font-size:10px;color:#95a5a6;font-family:Arial,sans-serif;}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+select{width:300px;padding:6px 10px;font-size:13px;font-family:Arial,sans-serif;border:1px solid #ddd;border-radius:4px;margin-bottom:12px;background:white;cursor:pointer;}
+.footer{text-align:center;margin-top:22px;padding-top:14px;border-top:1px solid #ddd;font-size:10px;color:#95a5a6;font-family:Arial,sans-serif;}
+@media(max-width:700px){.grid2{grid-template-columns:1fr;}.kpi-row{flex-direction:column;align-items:flex-start;}.masthead{padding:20px;}.masthead h1{font-size:22px;}}
+</style>
+</head>
+<body>
+
+<div class="masthead">
+  <div class="tag">PROFESSIONAL DATA JOURNALISM &middot; NCI 9DATAV 2026</div>
+  <h1>Where Ireland's Waiting List Crisis Really Lives</h1>
+  <div class="byline">
+    <p>Team 07 &middot; Ben Savio Yesudas &middot; Mary Divya Prajesh &middot; Anithu Yohannan &middot; Shanu Ponnattu Shaji</p>
+    <span>Source: NTPF Open Data Jan 2025&ndash;Feb 2026 | Dept of Health Waiting Time Action Plan 2026</span>
+  </div>
+</div>
+
+<div class="body">
+
+  <div class="card red">
+    <div class="section-label">
+      <span class="num">SECTION 1. </span>
+      <span class="title">The Endless Queue</span>
+    </div>
+    <div class="kpi-row">
+      <div>
+        <div class="kpi-big">48,281</div>
+        <div class="kpi-label">patients waiting 18+ months</div>
+        <div class="kpi-sub">as of February 2026</div>
+      </div>
+      <div class="divider"></div>
+      <div class="stats-row">
+        <div>
+          <div class="stat-num stat-red">+10%</div>
+          <div class="stat-lbl">increase in extreme waits</div>
+          <div class="stat-sub">Jan 2025 to Feb 2026</div>
+        </div>
+        <div>
+          <div class="stat-num stat-blue">EUR 420M</div>
+          <div class="stat-lbl">government Action Plan spend</div>
+          <div class="stat-sub">yet the backlog still grows</div>
+        </div>
+        <div>
+          <div class="stat-num stat-red">57%</div>
+          <div class="stat-lbl">of extreme waits in 5 specialties</div>
+          <div class="stat-sub">Dermatology leads at 17.4%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card blue">
+    <div class="section-label">
+      <span class="num">SECTION 2. </span>
+      <span class="title">The Blocked Arteries</span>
+    </div>
+    <p class="sub">Five specialties account for 57% of all extreme waits. Hover for details. Use dropdown to highlight.</p>
+    <select id="spec-select" onchange="updatePareto()">
+      <option value="">All specialties</option>
+      <option>Dermatology</option>
+      <option>Endocrinology</option>
+      <option>ENT</option>
+      <option>Gastroenterology</option>
+      <option>Gynaecology</option>
+      <option>Neurology</option>
+      <option>Ophthalmology</option>
+      <option>Orthopaedics</option>
+      <option>Rheumatology</option>
+      <option>Urology</option>
+    </select>
+    <div id="pareto-bar" style="height:380px;"></div>
+  </div>
+
+  <div class="grid2">
+    <div class="card amber">
+      <div class="section-label">
+        <span class="num">SECTION 3. </span>
+        <span class="title">The Geographic Divide</span>
+      </div>
+      <p class="sub">Dublin, Cork and Galway carry the heaviest burden. Vast regional variation in access to timely care.</p>
+      <div id="geo-bar" style="height:520px;"></div>
+    </div>
+    <div class="card blue">
+      <div class="section-label">
+        <span class="num">SECTION 4. </span>
+        <span class="title">The Staffing &amp; Bed Gap</span>
+      </div>
+      <p class="sub">Too many patients, not enough resources. The list grows faster than it is cleared.</p>
+      <div id="trend-line" style="height:520px;"></div>
+    </div>
+  </div>
+
+  <div class="footer">
+    Professional Data Journalism &middot; Team 07 &middot; NCI 9DATAV 2026 &middot; Data: NTPF Open Data, Dept of Health, RT&Eacute; News
+  </div>
+
+</div>
+
+<script>
+var TOP5=["Dermatology","Endocrinology","Orthopaedics","Ophthalmology","Neurology"];
+var RED="#c0392b",BLUE="#2471a3",DARK="#7f0000";
+
+var specLabels=["Urology","Rheumatology","Gastroenterology","ENT","Gynaecology","Neurology","Ophthalmology","Orthopaedics","Endocrinology","Dermatology"];
+var specValues=[1400,1600,1750,1900,2100,2563,4800,5200,6521,8425];
+var specShares=[2.9,3.3,3.6,3.9,4.3,5.3,9.9,10.8,13.5,17.4];
+
+var regionLabels=["Leitrim","Carlow","Laois","Offaly","Longford","Monaghan","Cavan","Kilkenny","Louth","Wexford","Westmeath","Roscommon","Sligo","Clare","Tipperary","Wicklow","Meath","Kildare","Kerry","Donegal","Mayo","Waterford","Limerick","Galway","Cork","Dublin"];
+var regionValues=[310,480,590,620,500,650,700,950,850,1100,780,750,900,1050,1200,1300,1400,1700,1800,1600,1500,2100,3800,5100,8200,12500];
+
+var months=["Jan 25","Feb 25","Mar 25","Apr 25","May 25","Jun 25","Jul 25","Aug 25","Sep 25","Oct 25","Nov 25","Dec 25","Jan 26","Feb 26"];
+var totalPts=[1138498,1152300,1168000,1180500,1195000,1208000,1220000,1235000,1248000,1258000,1265000,1272000,1279000,1284319];
+var extremePts=[87816,89200,90500,91800,93000,94200,95100,96000,98747,97500,96800,96200,96000,96561];
+
+function getParetoCols(sel){
+  return specLabels.map(function(s){
+    if(sel) return s===sel?RED:"#dce3ea";
+    return TOP5.indexOf(s)>=0?RED:"#aac4d8";
+  });
+}
+
+function updatePareto(){
+  var sel=document.getElementById("spec-select").value;
+  Plotly.restyle("pareto-bar",{"marker.color":[getParetoCols(sel)]});
+}
+
+Plotly.newPlot("pareto-bar",[{
+  type:"bar",orientation:"h",
+  x:specValues,y:specLabels,
+  marker:{color:getParetoCols(""),line:{width:0}},
+  text:specShares.map(function(s){return s+"%";}),
+  textposition:"outside",
+  hovertemplate:"<b>%{y}</b><br>Patients 18+ months: <b>%{x:,}</b><br>Share: <b>%{text}</b><extra></extra>"
+}],{
+  margin:{l:130,r:70,t:10,b:50},
+  xaxis:{title:"Patients waiting 18+ months (Feb 2026)",gridcolor:"#f0f0f0"},
+  plot_bgcolor:"white",paper_bgcolor:"white",height:380
+},{responsive:true,displayModeBar:false});
+
+var geoCols=regionLabels.map(function(c,i){
+  if(c==="Dublin"||c==="Cork"||c==="Galway") return DARK;
+  if(regionValues[i]>1500) return RED;
+  if(regionValues[i]>900) return "#e57373";
+  return "#ffcdd2";
+});
+
+Plotly.newPlot("geo-bar",[{
+  type:"bar",orientation:"h",
+  x:regionValues,y:regionLabels,
+  marker:{color:geoCols,line:{width:0}},
+  hovertemplate:"<b>%{y}</b><br>Extreme waits: <b>%{x:,}</b><extra></extra>"
+}],{
+  margin:{l:90,r:40,t:10,b:50},
+  xaxis:{title:"Estimated patients in extreme waits",gridcolor:"#f0f0f0"},
+  plot_bgcolor:"white",paper_bgcolor:"white",height:520
+},{responsive:true,displayModeBar:false});
+
+Plotly.newPlot("trend-line",[
+  {
+    type:"scatter",mode:"lines+markers",
+    x:months,y:totalPts,
+    name:"Total OPD patients",
+    line:{color:BLUE,width:2},
+    hovertemplate:"<b>%{x}</b><br>Total: <b>%{y:,}</b><extra></extra>"
+  },
+  {
+    type:"scatter",mode:"lines+markers",
+    x:months,y:extremePts,
+    name:"Patients 18+ months",
+    line:{color:RED,width:2},
+    yaxis:"y2",
+    hovertemplate:"<b>%{x}</b><br>18+ months: <b>%{y:,}</b><extra></extra>"
+  }
+],{
+  margin:{l:60,r:70,t:10,b:60},
+  xaxis:{title:"Month",gridcolor:"#f0f0f0"},
+  yaxis:{title:"Total OPD patients",color:BLUE,gridcolor:"#f0f0f0"},
+  yaxis2:{title:"Patients 18+ months",overlaying:"y",side:"right",color:RED},
+  legend:{orientation:"h",y:-0.2},
+  annotations:[{
+    x:"Jul 25",y:94000,yref:"y2",
+    text:"EUR 420M Action Plan<br>waits still rising",
+    showarrow:true,arrowhead:2,arrowcolor:RED,
+    font:{color:RED,size:11},
+    bgcolor:"white",bordercolor:RED
+  }],
+  plot_bgcolor:"white",paper_bgcolor:"white",height:520
+},{responsive:true,displayModeBar:false});
+</script>
+
+</body>
+</html>
